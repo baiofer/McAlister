@@ -60,6 +60,7 @@
                 android:layout_weight="1"
                 android:background="#52BE7F"
                 android:text="@android:string/ok"
+                android:textColor="#E8F6EE"
                 tools:ignore="ButtonStyle"/>
 
             <Button
@@ -71,6 +72,7 @@
                 android:layout_weight="1"
                 android:background="#52BE7F"
                 android:text="@android:string/cancel"
+                android:textColor="#E8F6EE"
                 tools:ignore="ButtonStyle"/>
 
             <Button
@@ -81,6 +83,7 @@
                 android:layout_weight="1"
                 android:background="#52BE7F"
                 android:text="@string/add_plate_button"
+                android:textColor="#E8F6EE"
                 tools:ignore="ButtonStyle"/>
         </LinearLayout>
 
