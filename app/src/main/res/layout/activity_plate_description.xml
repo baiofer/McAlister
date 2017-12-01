@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E8F6EE"
+    tools:context="com.jarzasa.mcalister.activity.PlateDescriptionActivity">
+
+    <TextView
+        android:id="@+id/plate_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/plate_number"
+        app:layout_constraintEnd_toEndOf="@+id/plate_table_title"
+        app:layout_constraintStart_toStartOf="@+id/plate_table_title"
+        app:layout_constraintTop_toBottomOf="@+id/plate_table_title"/>
+
+    <TextView
+        android:id="@+id/plate_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/plate_name"
+        app:layout_constraintEnd_toEndOf="@+id/plate_table_title"
+        app:layout_constraintStart_toStartOf="@+id/plate_table_title"
+        app:layout_constraintTop_toBottomOf="@+id/plate_number"/>
+
+    <TextView
+        android:id="@+id/ingredients_plate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/ingredients_plate"
+        app:layout_constraintEnd_toEndOf="@+id/plate_ingredients_title"
+        app:layout_constraintStart_toStartOf="@+id/plate_ingredients_title"
+        app:layout_constraintTop_toBottomOf="@+id/plate_ingredients_title"/>
+
+    <TextView
+        android:id="@+id/allergens_plate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/allergens_plate"
+        app:layout_constraintEnd_toEndOf="@+id/plate_allergens_title"
+        app:layout_constraintStart_toStartOf="@+id/plate_allergens_title"
+        app:layout_constraintTop_toBottomOf="@+id/plate_allergens_title"/>
+
+    <ImageView
+        android:id="@+id/photo_plate"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/plate_photo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price_plate"
+        app:srcCompat="@drawable/ico_present"/>
+
+    <TextView
+        android:id="@+id/recipe_plate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/recipe_plate"
+        app:layout_constraintEnd_toEndOf="@+id/plate_recipe_title"
+        app:layout_constraintStart_toStartOf="@+id/plate_recipe_title"
+        app:layout_constraintTop_toBottomOf="@+id/plate_recipe_title"/>
+
+    <TextView
+        android:id="@+id/price_plate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/price_plate"
+        app:layout_constraintEnd_toEndOf="@+id/plate_price_title"
+        app:layout_constraintStart_toStartOf="@+id/plate_price_title"
+        app:layout_constraintTop_toBottomOf="@+id/plate_price_title"/>
+
+    <TextView
+        android:id="@+id/plate_table_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/plate_table_title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/plate_ingredients_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/plate_ingredients_title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/plate_name"/>
+
+    <TextView
+        android:id="@+id/plate_allergens_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/plate_allergens_title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ingredients_plate"/>
+
+    <TextView
+        android:id="@+id/plate_recipe_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/plate_recipe_title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/allergens_plate"/>
+
+    <TextView
+        android:id="@+id/plate_price_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/plate_price_title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_plate"/>
+
+</android.support.constraint.ConstraintLayout>
