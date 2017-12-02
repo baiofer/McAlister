@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="@dimen/recycler_card_elevation"
+    app:cardCornerRadius="@dimen/recycler_card_radius"
+    android:layout_margin="@dimen/normal_margin">
+
+    <android.support.constraint.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:textAlignment="center">
+
+
+        <ImageView
+            android:id="@+id/cell_table_image"
+            android:layout_width="71dp"
+            android:layout_height="74dp"
+            android:layout_marginBottom="@dimen/normal_margin"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/normal_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/default_text"
+            app:srcCompat="@drawable/alubias_con_almejas"/>
+
+        <TextView
+            android:id="@+id/cell_table_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:text="@string/default_text"
+            android:textSize="@dimen/big_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cell_table_image"
+            app:layout_constraintTop_toTopOf="@+id/cell_table_image"/>
+
+        <TextView
+            android:id="@+id/cell_table_quantity_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:text="@string/quantity"
+            app:layout_constraintBottom_toBottomOf="@+id/cell_table_image"
+            app:layout_constraintStart_toEndOf="@+id/cell_table_image"/>
+
+        <TextView
+            android:id="@+id/cell_name_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:text="@string/default_text"
+            app:layout_constraintBottom_toBottomOf="@+id/cell_table_image"
+            app:layout_constraintStart_toEndOf="@+id/cell_table_quantity_name"/>
+
+        <TextView
+            android:id="@+id/cell_plate_price_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:text="@string/price"
+            app:layout_constraintBottom_toBottomOf="@+id/cell_table_image"
+            app:layout_constraintEnd_toStartOf="@+id/cell_plate_price"/>
+
+        <TextView
+            android:id="@+id/cell_plate_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:text="@string/default_text"
+            app:layout_constraintBottom_toBottomOf="@+id/cell_table_image"
+            app:layout_constraintEnd_toEndOf="@+id/cell_table_name"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

@@ -45,5 +45,8 @@
     <string name="plate_text">Plato</string>
     <string name="tables_list">LISTA DE MESAS</string>
     <string name="plus">+</string>
+    <string name="default_text">Default</string>
+    <string name="quantity">Cantidad:</string>
+    <string name="price">Precio:</string>
 
 </resources>
