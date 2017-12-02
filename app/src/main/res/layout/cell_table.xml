@@ -20,13 +20,11 @@
             android:id="@+id/cell_table_image"
             android:layout_width="71dp"
             android:layout_height="74dp"
-            android:layout_marginBottom="@dimen/normal_margin"
             android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/normal_margin"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/small_margin"
+            android:contentDescription="@string/default_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/default_text"
             app:srcCompat="@drawable/alubias_con_almejas"/>
 
         <TextView
@@ -35,7 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/normal_margin"
             android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            android:gravity="top|start"
             android:text="@string/default_text"
             android:textSize="@dimen/big_text"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,36 +46,50 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="8dp"
             android:text="@string/quantity"
-            app:layout_constraintBottom_toBottomOf="@+id/cell_table_image"
-            app:layout_constraintStart_toEndOf="@+id/cell_table_image"/>
+            app:layout_constraintStart_toEndOf="@+id/cell_table_image"
+            app:layout_constraintTop_toBottomOf="@+id/cell_table_name"/>
 
         <TextView
-            android:id="@+id/cell_name_quantity"
+            android:id="@+id/cell_table_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="8dp"
             android:text="@string/default_text"
-            app:layout_constraintBottom_toBottomOf="@+id/cell_table_image"
-            app:layout_constraintStart_toEndOf="@+id/cell_table_quantity_name"/>
+            app:layout_constraintStart_toEndOf="@+id/cell_table_quantity_name"
+            app:layout_constraintTop_toBottomOf="@+id/cell_table_name"/>
 
         <TextView
             android:id="@+id/cell_plate_price_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginTop="8dp"
             android:text="@string/price"
-            app:layout_constraintBottom_toBottomOf="@+id/cell_table_image"
-            app:layout_constraintEnd_toStartOf="@+id/cell_plate_price"/>
+            app:layout_constraintEnd_toStartOf="@+id/cell_plate_price"
+            app:layout_constraintTop_toBottomOf="@+id/cell_table_name"/>
 
         <TextView
             android:id="@+id/cell_plate_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginTop="8dp"
             android:text="@string/default_text"
-            app:layout_constraintBottom_toBottomOf="@+id/cell_table_image"
-            app:layout_constraintEnd_toEndOf="@+id/cell_table_name"/>
+            app:layout_constraintEnd_toEndOf="@+id/cell_table_name"
+            app:layout_constraintTop_toBottomOf="@+id/cell_table_name"/>
+
+        <TextView
+            android:id="@+id/cell_table_notes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/default_text"
+            app:layout_constraintEnd_toEndOf="@+id/cell_plate_price"
+            app:layout_constraintStart_toStartOf="@+id/cell_table_quantity_name"
+            app:layout_constraintTop_toBottomOf="@+id/cell_table_quantity_name"/>
 
     </android.support.constraint.ConstraintLayout>
 

@@ -8,10 +8,16 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ListAdapter
+import android.widget.TextView
 import com.jarzasa.mcalister.R
+import com.jarzasa.mcalister.adapter.TableRecyclerViewAdapter
 import com.jarzasa.mcalister.model.Plate
 import com.jarzasa.mcalister.model.Table
 import com.jarzasa.mcalister.model.Tables
@@ -38,6 +44,7 @@ class TableActivity : AppCompatActivity() {
 
     var table: Table? = null
     var plateSelected: Int = 0
+    lateinit var platesList: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,11 +89,32 @@ class TableActivity : AppCompatActivity() {
     }
 
     fun drawList() {
+        /*
         val adapter = ArrayAdapter<Plate>(this, android.R.layout.simple_list_item_1, table?.toArray())
         table_plates.adapter = adapter
 
         table_plates.setOnItemClickListener { parent, view, position, id ->
             plateSelected = position
+            startActivityForResult(NotesTableActivity.intent(this, table, position), REQUEST_NOTE)
+        }
+        //Si no hay platos seleccionados en la mesa, no mostramos el FloatingActionButton
+        if (table?.plates?.size == 0) {
+            setBillButton(OFF)
+        } else {
+            setBillButton(ON)
+        }
+        */
+        platesList = findViewById(R.id.table_plates)
+        platesList.layoutManager = LinearLayoutManager(this)
+        platesList.itemAnimator = DefaultItemAnimator()
+
+        val adapter = TableRecyclerViewAdapter(table?.plates)
+        platesList.adapter = adapter
+        //Le digo al RecyclerViewAdapter que me informe cuando pulsen una de sus vistas
+        adapter.onClickListener = View.OnClickListener { v: View? ->
+            //Aqui me entero de que se ha pulsado una de las vistas
+            val position = platesList.getChildAdapterPosition(v)
+            //Lanzamos la actividad detalle
             startActivityForResult(NotesTableActivity.intent(this, table, position), REQUEST_NOTE)
         }
         //Si no hay platos seleccionados en la mesa, no mostramos el FloatingActionButton

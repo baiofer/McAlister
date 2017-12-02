@@ -58,11 +58,7 @@ class PlateDescriptionActivity : AppCompatActivity() {
                     "mero_en_salsa_de_setas.jpg" -> photo_plate.setImageResource(R.drawable.mero_en_salsa_de_setas)
                     "pechuga_de_pollo_en_salsa_de_almendras_y_curry.jpg" -> photo_plate.setImageResource(R.drawable.pechuga_de_pollo_en_salsa_de_almendras_y_curry)
                     "tarta_de_queso_con_mermelada_de_fresa.jpg" -> photo_plate.setImageResource(R.drawable.tarta_de_queso_con_mermelada_de_fresa)
-
                 }
-
-
-
             }
         }
 
