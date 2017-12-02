@@ -96,6 +96,6 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/big_margin"
         android:layout_marginBottom="70dp"
-        android:src="@drawable/icon_toolbar"/>
+        android:src="@drawable/bill"/>
 
 </android.support.design.widget.CoordinatorLayout>

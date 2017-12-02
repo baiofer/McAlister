@@ -74,6 +74,7 @@ class PlateDescriptionActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    //Si pulsan el botón Back, salgo de la actividad sin mas y vuelvo a la anterior
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == android.R.id.home) {
             finish()

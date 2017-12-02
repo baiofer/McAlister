@@ -2,11 +2,10 @@ package com.jarzasa.mcalister.model
 
 import java.io.Serializable
 
+//Mesas de la aplicación. Es una lista mutable de Table. Es un singleton, común para toda la aplicación
 object Tables: Serializable {
 
     private val tables: MutableList<Table> = mutableListOf()
-            //Table(1, 1, mutableListOf()),
-                                                           //Table(2, 2, mutableListOf()))
 
     val count = tables.size
 

@@ -2,6 +2,7 @@ package com.jarzasa.mcalister.model
 
 import java.io.Serializable
 
+//Modelo de una mesa (Table)
 data class Table(var number: Int,
                  var persons: Int,
                  var plates: MutableList<Plate>): Serializable {

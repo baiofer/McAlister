@@ -10,6 +10,7 @@ import com.jarzasa.mcalister.R
 import com.jarzasa.mcalister.model.Plate
 import com.jarzasa.mcalister.model.Plates
 
+//Adapter del RecyclerView de la carta de paltos (Plates)
 class PlatesRecyclerViewAdapter(): RecyclerView.Adapter<PlatesRecyclerViewAdapter.PlateViewHolder>() {
 
     lateinit var view: View

@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.jarzasa.mcalister.R
 import com.jarzasa.mcalister.model.Plate
 
+//Adapter del RecyclerView de la lista de mesas (Tables)
 class TableRecyclerViewAdapter(var plates: MutableList<Plate>?): RecyclerView.Adapter<TableRecyclerViewAdapter.TableViewHolder>() {
 
     lateinit var view: View

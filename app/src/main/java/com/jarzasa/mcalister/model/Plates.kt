@@ -2,6 +2,7 @@ package com.jarzasa.mcalister.model
 
 import java.io.Serializable
 
+//Carta de platos de la aplicación. Es una lista mutable de Plate. Es un singleton, común para toda la aplicación
 object Plates: Serializable {
 
     var platesDownloaded: MutableList<Plate> = mutableListOf()

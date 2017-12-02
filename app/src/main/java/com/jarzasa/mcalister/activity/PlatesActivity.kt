@@ -40,12 +40,15 @@ class PlatesActivity : AppCompatActivity() {
         val adapter = PlatesRecyclerViewAdapter()
         // Le decimos qué pasa cuando se pulsa un elemento del adapter
         adapter.buttonListener = object: PlatesRecyclerViewAdapter.ButtonListener {
+            //Si se ha pulsado el botón "+", devuelvo el plato seleccionado a la actividad que me llamó
+            //y salgo de mi actividad
             override fun buttonSelectPressed(plate: Plate) {
                 val returnIntent = Intent()
                 returnIntent.putExtra(TableActivity.EXTRA_PLATE, plate) as? Serializable
                 setResult(Activity.RESULT_OK, returnIntent)
                 finish()
             }
+            //Si se ha pulsado el botón "VER", presento los datos del plato con la actividad PlatesDescription
             override fun buttonViewPressed(plate: Plate) {
                 val intent = PlateDescriptionActivity.intent(this@PlatesActivity, plate)
                 startActivity(intent)
@@ -55,16 +58,19 @@ class PlatesActivity : AppCompatActivity() {
         plates_list.adapter = adapter
     }
 
+    //Recibo las respuestas de las actividades a las que llamo
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             REQUEST_VIEW -> {
+                //He presentado el plato y he vuelto. No hago nada
                 if (resultCode == Activity.RESULT_OK) {
                 }
             }
         }
     }
 
+    //Si pulsan el botón Back, salgo de la actividad sin mas y vuelvo a la anterior
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == android.R.id.home) {
             finish()

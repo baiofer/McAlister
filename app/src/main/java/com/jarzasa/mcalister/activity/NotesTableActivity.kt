@@ -39,23 +39,25 @@ class NotesTableActivity : AppCompatActivity() {
         //Recibimos el plato seleccionado de su lista de platos
         position = intent.getIntExtra(TableActivity.EXTRA_POSITION, 0)
 
-        //Poner datos almacenados en la pantalla
+        //Poner datos almacenados en la pantalla, para partir de los datos que hubiese
         if (table != null) {
             plate_name.text = table.plates[position].name
             quantity_edit.text = Editable.Factory.getInstance().newEditable(table.plates[position].quantity.toString())
             notes_edit.text = Editable.Factory.getInstance().newEditable(table.plates[position].notes)
         }
-
+        //Si se pulsa el botón ACEPTAR, se guardan los datos introducidos en el plato
         ok_notes_button.setOnClickListener {
             val returnIntent = Intent()
             if (table != null) {
                 table.plates[position].quantity = quantity_edit.text.toString().toInt()
                 table.plates[position].notes = notes_edit.text.toString()
             }
+            //Se devuelve la mesa actualizada a la actividad que me llamó
             returnIntent.putExtra(NotesTableActivity.EXTRA_TABLE, table) as? Serializable
             setResult(Activity.RESULT_OK, returnIntent)
             finish()
         }
+        //Si se pulsa el botón CANCELAR se regresa a la actividad anterior sin hacer nada
         cancel_notes_button.setOnClickListener {
             setResult(Activity.RESULT_CANCELED)
             finish()

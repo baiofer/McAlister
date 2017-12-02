@@ -32,6 +32,7 @@ class TablesActivity : AppCompatActivity() {
         //Activo el botón de back de la barra
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        //Pinto la lista de mesas
         drawList()
     }
 
@@ -47,16 +48,19 @@ class TablesActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
+            //Opción Añadir/Modificar mesa
             R.id.add_table_menu -> {
                 val intent = AddTableActivity.intent(this)
                 startActivityForResult(intent, REQUEST_ADD)
                 return true
             }
+            //Opción borrar mesa
             R.id.erase_item_menu -> {
                 val intent = DeleteTableActivity.intent(this)
                 startActivityForResult(intent, REQUEST_DELETE)
                 return true
             }
+            //Opción botón Back
             android.R.id.home -> {
                 finish()
                 return true
@@ -65,10 +69,16 @@ class TablesActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // FIN MENU
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //Recibo las respuestas de las actividades a las que llamo
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             REQUEST_ADD -> {
+                //Añado la mesa a la lista de mesas si no existia o la actualizo si ya existia
                 if (resultCode == Activity.RESULT_OK) {
                     val tableSelected = data?.getSerializableExtra(AddTableActivity.EXTRA_TABLE) as? Table
                     val operation = data?.getBooleanExtra(AddTableActivity.EXTRA_OPTION, ADD)
@@ -83,6 +93,7 @@ class TablesActivity : AppCompatActivity() {
                 } else { }
             }
             REQUEST_DELETE -> {
+                //Borro la mesa de la lista de mesas
                 if (resultCode == Activity.RESULT_OK) {
                     val tableSelected = data?.getSerializableExtra(DeleteTableActivity.EXTRA_TABLE) as? Table
                     if (tableSelected != null) {
@@ -92,14 +103,18 @@ class TablesActivity : AppCompatActivity() {
                 } else { }
             }
             REQUEST_TABLE -> {
+                //Si salen con botón ACEPTAR
                 if (resultCode == Activity.RESULT_OK) {
+                    //Actualizo la mesa con los datos que traiga
                     val tableSelected = data?.getSerializableExtra(TableActivity.EXTRA_TABLE) as? Table
                     if (tableSelected != null) {
                         Tables.actualizeTable(tableSelected)
                         drawList()
                     }
+                //Si salen con PositiveButton del Alert de la Factura
                 } else {
                     if (resultCode == Activity.RESULT_FIRST_USER) {
+                        //Borro la mesa de la lista. Está acabada
                         val tableSelected = data?.getSerializableExtra(TableActivity.EXTRA_TABLE) as? Table
                         if (tableSelected != null) {
                             Tables.deleteTable(tableSelected)
@@ -111,15 +126,14 @@ class TablesActivity : AppCompatActivity() {
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    //
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
+    //Pinto la ListView de las mesas
     fun drawList() {
+        //Creo el adapter de la lista
         val adapter = ArrayAdapter<Table>(this, android.R.layout.simple_list_item_1, Tables.toArray())
         tables_listView.adapter = adapter
-
+        //Determino que hacer si me pulsan una celda de la lista
         tables_listView.setOnItemClickListener { parent, view, position, id ->
+            //Presento la mesa que me han seleccionado con position
             startActivityForResult(TableActivity.intent(this, position), REQUEST_TABLE)
         }
     }
