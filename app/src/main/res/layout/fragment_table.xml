@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#E8F6EE"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.jarzasa.mcalister.fragment.TableFragment">
+
+        <TextView
+            android:id="@+id/table_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:text="@string/table_title"
+            android:textAlignment="center"
+            android:textSize="@dimen/extra_big_text"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/table_plates"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/extra_big_text"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/extra_big_text"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="@+id/table_title"
+            app:layout_constraintStart_toStartOf="@+id/table_title"
+            app:layout_constraintTop_toBottomOf="@+id/table_title"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="368dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/extra_big_text"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/ok_table_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:layout_weight="1"
+                android:background="#52BE7F"
+                android:text="@android:string/ok"
+                android:textColor="#E8F6EE"
+                tools:ignore="ButtonStyle"/>
+
+            <Button
+                android:id="@+id/cancel_table_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin"
+                android:layout_weight="1"
+                android:background="#52BE7F"
+                android:text="@android:string/cancel"
+                android:textColor="#E8F6EE"
+                tools:ignore="ButtonStyle"/>
+
+            <Button
+                android:id="@+id/plates_table_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_weight="1"
+                android:background="#52BE7F"
+                android:text="@string/add_plate_button"
+                android:textColor="#E8F6EE"
+                tools:ignore="ButtonStyle"/>
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/bill_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:layout_marginBottom="70dp"
+        android:src="@drawable/bill"/>
+
+</android.support.design.widget.CoordinatorLayout>
+

@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import com.jarzasa.mcalister.R
+import com.jarzasa.mcalister.fragment.TableFragment
 import com.jarzasa.mcalister.model.Table
 import com.jarzasa.mcalister.model.Tables
 import kotlinx.android.synthetic.main.activity_tables.*
@@ -132,7 +133,7 @@ class TablesActivity : AppCompatActivity() {
         val adapter = ArrayAdapter<Table>(this, android.R.layout.simple_list_item_1, Tables.toArray())
         tables_listView.adapter = adapter
         //Determino que hacer si me pulsan una celda de la lista
-        tables_listView.setOnItemClickListener { parent, view, position, id ->
+        tables_listView.setOnItemClickListener { _, _, position, _ ->
             //Presento la mesa que me han seleccionado con position
             startActivityForResult(TableActivity.intent(this, position), REQUEST_TABLE)
         }
