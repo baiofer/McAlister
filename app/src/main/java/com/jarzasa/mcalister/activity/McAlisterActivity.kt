@@ -40,6 +40,9 @@ class McAlisterActivity : AppCompatActivity() {
         //Si no hay carta de platos descargada, la descargo
         if (Plates.count() == 0) {
             updatePlates()
+        } else {
+            //Presento la vista de acceso a la App
+            viewSwitcher.displayedChild = VIEW_INDEX.PLATES.index
         }
     }
 
