@@ -84,6 +84,17 @@ class TableFragment : Fragment() {
     // UTILIDADES
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
+    //Mostrar una mesa en la interfaz
+    fun showTable(tableShow: Table, positionShow: Int) {
+        table = tableShow
+        position = positionShow
+        //Pintamos el título de la mesa
+        val title = root.findViewById<TextView>(R.id.table_title)
+        title.text = getString(R.string.table_name) + table?.number
+
+        //Pintamos la lista de platos de la mesa
+        drawList()
+    }
     //Se pinta el RecyclerView con los platos seleccionados de la mesa
     fun drawList() {
         platesList = root.findViewById(R.id.table_plates)

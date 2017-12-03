@@ -13,8 +13,6 @@ import java.io.Serializable
 
 class TableActivity : AppCompatActivity(), TableFragment.OnFragmentInteractionListener {
 
-
-
     companion object {
         val REQUEST_PLATE = 1
         val REQUEST_NOTE = 2

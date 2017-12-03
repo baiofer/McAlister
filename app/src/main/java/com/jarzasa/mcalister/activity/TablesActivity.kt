@@ -32,6 +32,20 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tables)
 
+        //Comprobamos que en la interfaz tenemos el FrameLayout de la mesa (Table)
+        if (findViewById<View>(R.id.table_fragment) != null) {
+            //Si no hay mesas, no presento nada
+            if (Tables.count() != 0) {
+                //Llamamos al fragment
+                if (fragmentManager.findFragmentById(R.id.table_fragment) == null) {
+                    // Si hemos llegado aquí, sabemos que nunca hemos creado el MainFragment, lo creamos
+                    fragmentManager.beginTransaction()
+                            .add(R.id.table_fragment, TableFragment.newInstance(0))
+                            .commit()
+                }
+            }
+        }
+
         //Comprobamos que en la interfaz tenemos el FrameLayout de la lista de mesas (Tables)
         if (findViewById<View>(R.id.tables_fragment) != null) {
             //Llamamos al fragment
@@ -43,19 +57,6 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
             }
         }
 
-        //Comprobamos que en la interfaz tenemos el FrameLayout de la mesa (Table)
-        if (findViewById<View>(R.id.table_fragment) != null) {
-            //Si no hay mesas, no presento nada
-            if (Tables.count != 0) {
-                //Llamamos al fragment
-                if (fragmentManager.findFragmentById(R.id.table_fragment) == null) {
-                    // Si hemos llegado aquí, sabemos que nunca hemos creado el MainFragment, lo creamos
-                    fragmentManager.beginTransaction()
-                            .add(R.id.table_fragment, TableFragment.newInstance(0))
-                            .commit()
-                }
-            }
-        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,8 +65,8 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
 
     fun showFragmentTable(position: Int?) {
         //Comprobamos si la interfaz tiene el fragment de una mesa
-        val tableFragment = fragmentManager.findFragmentById(R.id.table_fragment) as? TableFragment
-        if (tableFragment == null) {
+        val fragment = findViewById<View>(R.id.table_fragment)
+        if (fragment == null) {
             //No existe el fragment en la interfaz, lanzo la actividad de la mesa
             if (position != null) {
                 startActivityForResult(TableActivity.intent(this, position), TablesActivity.REQUEST_TABLE)
@@ -73,7 +74,16 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
         } else {
             //Existe el fragment de la actividad, presento la mesa en el fragment
             //Muestro el fragment de la mesa
-
+            if (fragmentManager.findFragmentById(R.id.table_fragment) == null) {
+                // Si hemos llegado aquí, sabemos que nunca hemos creado el MainFragment, lo creamos
+                fragmentManager.beginTransaction()
+                        .add(R.id.table_fragment, TableFragment.newInstance(0))
+                        .commit()
+            } else {
+                fragmentManager.beginTransaction()
+                        .replace(R.id.table_fragment, TableFragment.newInstance(position!!))
+                        .commit()
+            }
         }
     }
 
@@ -119,7 +129,7 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
                     //Añado la mesa a la lista de mesas si no existia o la actualizo si ya existia
                     val fragment = fragmentManager.findFragmentById(R.id.tables_fragment) as? TablesFragment
                     fragment?.addTableInTables(tableSelected, operation)
-                    //showFragmentTable(null)
+                    //showFragmentTable(Tables.count()-1)
                 }
             }
             TablesActivity.REQUEST_DELETE -> {
@@ -129,7 +139,9 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
                     //Borro la mesa de la lista de mesas
                     val fragment = fragmentManager.findFragmentById(R.id.tables_fragment) as? TablesFragment
                     fragment?.deleteTableInTables(tableSelected)
-                    //showFragmentTable(null)
+                    //if (Tables.count() != 0) {
+                    //    showFragmentTable(0)
+                    //}
                 }
             }
             TablesActivity.REQUEST_TABLE -> {
@@ -151,7 +163,9 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
                         fragment?.tableSelectedReturn(tableSelected, typeReturn)
                     }
                 }
-                //showFragmentTable(null)
+                //if (Tables.count() != 0) {
+                //    showFragmentTable(0)
+                //}
             }
         }
     }

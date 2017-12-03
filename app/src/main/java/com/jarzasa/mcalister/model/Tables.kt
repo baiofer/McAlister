@@ -7,7 +7,7 @@ object Tables: Serializable {
 
     private val tables: MutableList<Table> = mutableListOf()
 
-    val count = tables.size
+    fun count() = tables.size
 
     operator fun get(i: Int) = tables[i]
     operator fun set(i: Int, value: Table) {
