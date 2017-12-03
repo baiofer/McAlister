@@ -3,16 +3,12 @@ package com.jarzasa.mcalister.fragment
 import android.app.Activity
 import android.app.Fragment
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import com.jarzasa.mcalister.R
-import com.jarzasa.mcalister.activity.AddTableActivity
-import com.jarzasa.mcalister.activity.DeleteTableActivity
-import com.jarzasa.mcalister.activity.TableActivity
 import com.jarzasa.mcalister.activity.TablesActivity
 import com.jarzasa.mcalister.model.Table
 import com.jarzasa.mcalister.model.Tables
@@ -36,7 +32,6 @@ class TablesFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_tables, container, false)
 
         //Activo el botón Back de la supportActionBar
@@ -61,14 +56,14 @@ class TablesFragment : Fragment() {
         when (item?.itemId) {
         //Opción Añadir/Modificar mesa
             R.id.add_table_menu -> {
-                val intent = AddTableActivity.intent(activity)
-                startActivityForResult(intent, TablesActivity.REQUEST_ADD)
+                //Decirle a la actividad que añada una mesa
+                mListener?.addTable()
                 return true
             }
         //Opción borrar mesa
             R.id.erase_item_menu -> {
-                val intent = DeleteTableActivity.intent(activity)
-                startActivityForResult(intent, TablesActivity.REQUEST_DELETE)
+                //Decirle a la actividad que borre una mesa
+                mListener?.deleteTable()
                 return true
             }
         //Opción botón Back
@@ -80,62 +75,9 @@ class TablesFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // FIN MENU
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
-    //Recibo las respuestas de las actividades a las que llamo
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            TablesActivity.REQUEST_ADD -> {
-                //Añado la mesa a la lista de mesas si no existia o la actualizo si ya existia
-                if (resultCode == Activity.RESULT_OK) {
-                    val tableSelected = data?.getSerializableExtra(AddTableActivity.EXTRA_TABLE) as? Table
-                    val operation = data?.getBooleanExtra(AddTableActivity.EXTRA_OPTION, TablesActivity.ADD)
-                    if (tableSelected != null) {
-                        if (operation == TablesActivity.ADD) {
-                            Tables.addTable(tableSelected)
-                        } else {
-                            Tables.actualizeTable(tableSelected)
-                        }
-                        drawList()
-                    }
-                } else { }
-            }
-            TablesActivity.REQUEST_DELETE -> {
-                //Borro la mesa de la lista de mesas
-                if (resultCode == Activity.RESULT_OK) {
-                    val tableSelected = data?.getSerializableExtra(DeleteTableActivity.EXTRA_TABLE) as? Table
-                    if (tableSelected != null) {
-                        Tables.deleteTable(tableSelected)
-                        drawList()
-                    }
-                } else { }
-            }
-            TablesActivity.REQUEST_TABLE -> {
-                //Si salen con botón ACEPTAR
-                if (resultCode == Activity.RESULT_OK) {
-                    //Actualizo la mesa con los datos que traiga
-                    val tableSelected = data?.getSerializableExtra(TableActivity.EXTRA_TABLE) as? Table
-                    if (tableSelected != null) {
-                        Tables.actualizeTable(tableSelected)
-                        drawList()
-                    }
-                    //Si salen con PositiveButton del Alert de la Factura
-                } else {
-                    if (resultCode == Activity.RESULT_FIRST_USER) {
-                        //Borro la mesa de la lista. Está acabada
-                        val tableSelected = data?.getSerializableExtra(TableActivity.EXTRA_TABLE) as? Table
-                        if (tableSelected != null) {
-                            Tables.deleteTable(tableSelected)
-                            drawList()
-                        }
-                    }
-                }
-            }
-        }
-    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // UTILIDADES
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     //Pinto la ListView de las mesas
     fun drawList() {
@@ -145,12 +87,59 @@ class TablesFragment : Fragment() {
         //Determino que hacer si me pulsan una celda de la lista
         root.findViewById<ListView>(R.id.tables_listView).setOnItemClickListener { _, _, position, _ ->
             //Presento la mesa que me han seleccionado con position
-            startActivityForResult(TableActivity.intent(activity, position), TablesActivity.REQUEST_TABLE)
+            //Le digo a la activity que hay que presentar la mesa seleccionada
+            mListener?.tableSelected(position)
+        }
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // COMUNICACION ACTIVITY - FRAGMENT
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //Recibo las respuestas de las actividades a las que llamo
+    //Añadir mesa
+    fun addTableInTables(tableSelected: Table?, operation: Boolean?) {
+        if (tableSelected != null) {
+            if (operation == TablesActivity.ADD) {
+                Tables.addTable(tableSelected)
+            } else {
+                Tables.actualizeTable(tableSelected)
+            }
+        }
+        drawList()
+    }
+
+    //Borrar mesa
+    fun deleteTableInTables(tableSelected: Table?) {
+        if (tableSelected != null) {
+            Tables.deleteTable(tableSelected)
+            drawList()
+        }
+    }
+
+    //Mesa seleccionada para mostrarla
+    fun tableSelectedReturn(tableSelected: Table?, typeReturn: TablesActivity.TYPE_RETURN) {
+        if (typeReturn == TablesActivity.TYPE_RETURN.RESULT_OK) {
+            //Actualizo la mesa con los datos que traiga
+            if (tableSelected != null) {
+                Tables.actualizeTable(tableSelected)
+                drawList()
+            }
+            //Si salen con PositiveButton del Alert de la Factura
+        } else {
+            if (typeReturn == TablesActivity.TYPE_RETURN.RESULT_FIRST_USER) {
+                //Borro la mesa de la lista. Está acabada
+                if (tableSelected != null) {
+                    Tables.deleteTable(tableSelected)
+                    drawList()
+                }
+            }
         }
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    // COMUNICATION WHIT ACTIVITIES AND FRAGMENTS
+    // COMUNICACION FRAGMENT - ACTIVITY
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     override fun onAttach(context: Context?) {
@@ -178,6 +167,9 @@ class TablesFragment : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun cancelActivity()
+        fun addTable()
+        fun deleteTable()
+        fun tableSelected(position: Int)
     }
 
 }

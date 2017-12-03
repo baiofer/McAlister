@@ -5,8 +5,8 @@
     <string name="table_persons">Comensales:</string>
     <string name="add_text_title">AÑADIR / MODIFICAR MESA</string>
     <string name="erase_text_title">BORRAR MESA</string>
-    <string name="table_list_title">LISTA DE MESAS</string>
-    <string name="plates_list_title">LISTA DE PLATOS</string>
+    <string name="table_list_title">MESAS</string>
+    <string name="plates_list_title">CARTA DE PLATOS</string>
     <string name="add_plate_button">Platos</string>
     <string name="plate_number">13</string>
     <string name="plate_name">Ensalada mixta</string>
@@ -43,7 +43,7 @@
     <string name="table_title">MESA</string>
     <string name="text_progress">Cargando carta de platos</string>
     <string name="plate_text">Plato</string>
-    <string name="tables_list">LISTA DE MESAS</string>
+    <string name="tables_list">MESAS</string>
     <string name="plus">+</string>
     <string name="default_text">Default</string>
     <string name="quantity">Cantidad:</string>

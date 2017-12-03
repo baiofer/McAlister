@@ -65,9 +65,12 @@ class TableFragment : Fragment() {
         drawList()
 
         //Detectamos la pulsación de los botones
-        root.findViewById<Button>(R.id.ok_table_button).setOnClickListener { acceptTable() }
-        root.findViewById<Button>(R.id.cancel_table_button).setOnClickListener { cancelTable() }
-        root.findViewById<Button>(R.id.plates_table_button).setOnClickListener { addPlateToTable() }
+        //Se aceptan los datos de la mesa. Se devuelve la mesa con sus valores
+        root.findViewById<Button>(R.id.ok_table_button).setOnClickListener { mListener?.okTable(table) }
+        //No se aceptan los datos de la mesa. No se devuelve nada. La mesa queda como estuviese
+        root.findViewById<Button>(R.id.cancel_table_button).setOnClickListener { mListener?.cancelTable() }
+        //Se va a la lista de platos para seleccionar un plato
+        root.findViewById<Button>(R.id.plates_table_button).setOnClickListener { mListener?.selectPlateFromPlates() }
 
         //Detectamos el floatingActionButton
         root.findViewById<FloatingActionButton?>(R.id.bill_button)?.setOnClickListener { _: View ->
@@ -77,45 +80,9 @@ class TableFragment : Fragment() {
         return root
     }
 
-    //Se aceptan los datos de la mesa. Se devuelve la mesa con sus valores
-    fun acceptTable() {
-        mListener?.okTable(table)
-    }
-
-    //No se aceptan los datos de la mesa. No se devuelve nada. La mesa queda como estuviese
-    fun cancelTable() {
-        mListener?.cancelTable()
-    }
-
-    //Se va a la lista de platos para seleccionar un plato
-    fun addPlateToTable() {
-        startActivityForResult(PlatesActivity.intent(activity), TableActivity.REQUEST_PLATE)
-    }
-
-    //Recibo las respuestas de las actividades a las que llamo
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            TableActivity.REQUEST_PLATE -> {
-                //Recibo elplato seleccionado y lo añado a la lista de platos, con cantidad a 1
-                if (resultCode == Activity.RESULT_OK) {
-                    val plateSelected = data?.getSerializableExtra(PlatesActivity.EXTRA_PLATE) as? Plate
-                    if (plateSelected != null) {
-                        plateSelected.quantity = 1
-                        table?.addPlate(plateSelected)
-                        drawList()
-                    }
-                }
-            }
-            TableActivity.REQUEST_NOTE -> {
-                //Recibo la mesa con los datos ya cambiados (cantidad y notas)
-                if (resultCode == Activity.RESULT_OK) {
-                    table = data?.getSerializableExtra(NotesTableActivity.EXTRA_TABLE) as? Table
-                    drawList()
-                }
-            }
-        }
-    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // UTILIDADES
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     //Se pinta el RecyclerView con los platos seleccionados de la mesa
     fun drawList() {
@@ -130,8 +97,9 @@ class TableFragment : Fragment() {
         adapter.onClickListener = View.OnClickListener { v: View? ->
             //Aqui me entero de que se ha pulsado una de las vistas
             val position = platesList.getChildAdapterPosition(v)
+            //Pedimos las notas y cantidad de un plato
             //Lanzamos la actividad NotesTable
-            startActivityForResult(NotesTableActivity.intent(activity, table, position), TableActivity.REQUEST_NOTE)
+            mListener?.getNotesFromPlate(table, position)
         }
         //Si no hay platos seleccionados en la mesa, no mostramos el FloatingActionButton
         if (table?.plates?.size == 0) {
@@ -171,7 +139,24 @@ class TableFragment : Fragment() {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    // COMUNICATION WHIT ACTIVITIES AND FRAGMENTS
+    // COMUNICACION ACTIVITY - FRAGMENT
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    fun addPlateSelectedToTable(plateSelected: Plate?) {
+        if (plateSelected != null) {
+            plateSelected.quantity = 1
+            table?.addPlate(plateSelected)
+            drawList()
+        }
+    }
+
+    fun addNotesToPlate(tableSelected: Table?) {
+        table = tableSelected
+        drawList()
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // COMUNICACION FRAGMENT - ACTIVITY
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -202,6 +187,8 @@ class TableFragment : Fragment() {
         fun okTable(table: Table?)
         fun cancelTable()
         fun deleteTable(table: Table?)
+        fun selectPlateFromPlates()
+        fun getNotesFromPlate(table: Table?, position: Int)
     }
 
 

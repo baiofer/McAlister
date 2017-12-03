@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.jarzasa.mcalister.R
 import com.jarzasa.mcalister.fragment.TableFragment
+import com.jarzasa.mcalister.model.Plate
 import com.jarzasa.mcalister.model.Table
 import java.io.Serializable
 
 class TableActivity : AppCompatActivity(), TableFragment.OnFragmentInteractionListener {
+
 
 
     companion object {
@@ -45,6 +47,10 @@ class TableActivity : AppCompatActivity(), TableFragment.OnFragmentInteractionLi
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //COMUNICACION FRAGMENT - ACTIVITY
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     //El fragment nos dice que salgamos devolviendo la mesa con los platos incorporados
     override fun okTable(table: Table?) {
         val returnIntent = Intent()
@@ -65,6 +71,41 @@ class TableActivity : AppCompatActivity(), TableFragment.OnFragmentInteractionLi
         returnIntent.putExtra(TableActivity.EXTRA_TABLE, table) as? Serializable
         setResult(Activity.RESULT_FIRST_USER, returnIntent)
         finish()
+    }
+
+    override fun selectPlateFromPlates() {
+        startActivityForResult(PlatesActivity.intent(this), TableActivity.REQUEST_PLATE)
+    }
+
+    override fun getNotesFromPlate(table: Table?, position: Int) {
+        startActivityForResult(NotesTableActivity.intent(this, table, position), TableActivity.REQUEST_NOTE)
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //COMUNICACION ACTIVITY - FRAGMENT
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //Recibo las respuestas de las actividades a las que llamo
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            TableActivity.REQUEST_PLATE -> {
+                //Recibo elplato seleccionado y lo añado a la lista de platos, con cantidad a 1
+                if (resultCode == Activity.RESULT_OK) {
+                    val plateSelected = data?.getSerializableExtra(PlatesActivity.EXTRA_PLATE) as? Plate
+                    val fragment = fragmentManager.findFragmentById(R.id.table_fragment) as? TableFragment
+                    fragment?.addPlateSelectedToTable(plateSelected)
+                }
+            }
+            TableActivity.REQUEST_NOTE -> {
+                //Recibo la mesa con los datos ya cambiados (cantidad y notas)
+                if (resultCode == Activity.RESULT_OK) {
+                    val tableSelected = data?.getSerializableExtra(NotesTableActivity.EXTRA_TABLE) as? Table
+                    val fragment = fragmentManager.findFragmentById(R.id.table_fragment) as? TableFragment
+                    fragment?.addNotesToPlate(tableSelected)
+                }
+            }
+        }
     }
 }
 
