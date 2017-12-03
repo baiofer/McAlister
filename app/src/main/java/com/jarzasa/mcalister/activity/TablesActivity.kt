@@ -9,10 +9,12 @@ import android.view.View
 import com.jarzasa.mcalister.R
 import com.jarzasa.mcalister.fragment.TableFragment
 import com.jarzasa.mcalister.fragment.TablesFragment
+import com.jarzasa.mcalister.model.Plate
 import com.jarzasa.mcalister.model.Table
 import com.jarzasa.mcalister.model.Tables
+import java.io.Serializable
 
-class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteractionListener {
+class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteractionListener, TableFragment.OnFragmentInteractionListener {
 
     enum class TYPE_RETURN {
         RESULT_OK,
@@ -88,7 +90,41 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    //COMUNICACION FRAGMENT - ACTIVITY
+    //COMUNICACION FRAGMENT_TABLE - ACTIVITY
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //El fragment nos dice que salgamos devolviendo la mesa con los platos incorporados
+    override fun okTable(table: Table?) {
+        val returnIntent = Intent()
+        returnIntent.putExtra(TableActivity.EXTRA_TABLE, table) as? Serializable
+        setResult(Activity.RESULT_OK, returnIntent)
+        //finish()
+    }
+
+    //El fragment nos dice que salgamos sin modificar nada
+    override fun cancelTable() {
+        setResult(Activity.RESULT_CANCELED)
+        //finish()
+    }
+
+    //El fragment nos dice que salgamos borrando la mesa. Ha dado la factura
+    override fun deleteTable(table: Table?) {
+        val returnIntent = Intent()
+        returnIntent.putExtra(TableActivity.EXTRA_TABLE, table) as? Serializable
+        setResult(Activity.RESULT_FIRST_USER, returnIntent)
+        //finish()
+    }
+
+    override fun selectPlateFromPlates() {
+        startActivityForResult(PlatesActivity.intent(this), TableActivity.REQUEST_PLATE)
+    }
+
+    override fun getNotesFromPlate(table: Table?, position: Int) {
+        startActivityForResult(NotesTableActivity.intent(this, table, position), TableActivity.REQUEST_NOTE)
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //COMUNICACION FRAGMENT_TABLES - ACTIVITY
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     //El fragment nos pide cerrar la actividad. Pulsado botón Back
@@ -114,7 +150,7 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    //COMUNICACION ACTIVITY - FRAGMENT TABLES
+    //COMUNICACION ACTIVITY - FRAGMENT TABLES y FRAGMENT_TABLE
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     //Recibo las respuestas de las actividades a las que llamo
@@ -129,7 +165,6 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
                     //Añado la mesa a la lista de mesas si no existia o la actualizo si ya existia
                     val fragment = fragmentManager.findFragmentById(R.id.tables_fragment) as? TablesFragment
                     fragment?.addTableInTables(tableSelected, operation)
-                    //showFragmentTable(Tables.count()-1)
                 }
             }
             TablesActivity.REQUEST_DELETE -> {
@@ -139,9 +174,6 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
                     //Borro la mesa de la lista de mesas
                     val fragment = fragmentManager.findFragmentById(R.id.tables_fragment) as? TablesFragment
                     fragment?.deleteTableInTables(tableSelected)
-                    //if (Tables.count() != 0) {
-                    //    showFragmentTable(0)
-                    //}
                 }
             }
             TablesActivity.REQUEST_TABLE -> {
@@ -163,9 +195,22 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
                         fragment?.tableSelectedReturn(tableSelected, typeReturn)
                     }
                 }
-                //if (Tables.count() != 0) {
-                //    showFragmentTable(0)
-                //}
+            }
+            TableActivity.REQUEST_PLATE -> {
+                //Recibo elplato seleccionado y lo añado a la lista de platos, con cantidad a 1
+                if (resultCode == Activity.RESULT_OK) {
+                    val plateSelected = data?.getSerializableExtra(PlatesActivity.EXTRA_PLATE) as? Plate
+                    val fragment = fragmentManager.findFragmentById(R.id.table_fragment) as? TableFragment
+                    fragment?.addPlateSelectedToTable(plateSelected)
+                }
+            }
+            TableActivity.REQUEST_NOTE -> {
+                //Recibo la mesa con los datos ya cambiados (cantidad y notas)
+                if (resultCode == Activity.RESULT_OK) {
+                    val tableSelected = data?.getSerializableExtra(NotesTableActivity.EXTRA_TABLE) as? Table
+                    val fragment = fragmentManager.findFragmentById(R.id.table_fragment) as? TableFragment
+                    fragment?.addNotesToPlate(tableSelected)
+                }
             }
         }
     }

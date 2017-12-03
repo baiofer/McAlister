@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.jarzasa.mcalister.R
 import com.jarzasa.mcalister.fragment.TableFragment
+import com.jarzasa.mcalister.fragment.TablesFragment
 import com.jarzasa.mcalister.model.Plate
 import com.jarzasa.mcalister.model.Table
 import java.io.Serializable
@@ -14,8 +15,8 @@ import java.io.Serializable
 class TableActivity : AppCompatActivity(), TableFragment.OnFragmentInteractionListener {
 
     companion object {
-        val REQUEST_PLATE = 1
-        val REQUEST_NOTE = 2
+        val REQUEST_PLATE = 4
+        val REQUEST_NOTE = 5
         val EXTRA_TABLE = "EXTRA_TABLE"
         val EXTRA_PLATE = "EXTRA_PLATE"
         val EXTRA_POSITION = "EXTRA_POSITION"
