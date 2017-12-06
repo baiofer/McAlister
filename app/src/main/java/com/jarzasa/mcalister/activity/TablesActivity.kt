@@ -12,7 +12,6 @@ import com.jarzasa.mcalister.fragment.TablesFragment
 import com.jarzasa.mcalister.model.Plate
 import com.jarzasa.mcalister.model.Table
 import com.jarzasa.mcalister.model.Tables
-import java.io.Serializable
 
 class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteractionListener, TableFragment.OnFragmentInteractionListener {
 
@@ -24,7 +23,6 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
     companion object {
         val REQUEST_ADD = 1
         val REQUEST_DELETE = 2
-        val REQUEST_TABLE = 3
         val ADD = false
 
         fun intent(context: Context) = Intent(context, TablesActivity::class.java)
@@ -34,7 +32,7 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tables)
 
-        //Comprobamos que en la interfaz tenemos el FrameLayout de la mesa (Table)
+        //Comprobamos que en la interfaz tenemos el FrameLayout de la mesa (Table)(landscape)
         if (findViewById<View>(R.id.table_fragment) != null) {
             //Si no hay mesas, no presento nada
             if (Tables.count() != 0) {
@@ -47,45 +45,72 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
                 }
             }
         }
-
-        //Comprobamos que en la interfaz tenemos el FrameLayout de la lista de mesas (Tables)
-        if (findViewById<View>(R.id.tables_fragment) != null) {
-            //Llamamos al fragment
-            if (fragmentManager.findFragmentById(R.id.tables_fragment) == null) {
-                // Si hemos llegado aquí, sabemos que nunca hemos creado el MainFragment, lo creamos
-                fragmentManager.beginTransaction()
-                        .add(R.id.tables_fragment, TablesFragment.newInstance())
-                        .commit()
-            }
+        //Llamamos al fragment de las Mesas
+        if (fragmentManager.findFragmentById(R.id.tables_fragment) == null) {
+            // Si hemos llegado aquí, sabemos que nunca hemos creado el MainFragment, lo creamos
+            fragmentManager.beginTransaction()
+                    .add(R.id.tables_fragment, TablesFragment.newInstance())
+                    .commit()
         }
-
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //UTILIDADES
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    fun showFragmentTable(position: Int?) {
-        //Comprobamos si la interfaz tiene el fragment de una mesa
-        val fragment = findViewById<View>(R.id.table_fragment)
-        if (fragment == null) {
-            //No existe el fragment en la interfaz, lanzo la actividad de la mesa
-            if (position != null) {
-                startActivityForResult(TableActivity.intent(this, position), TablesActivity.REQUEST_TABLE)
-            }
+    fun isPortrait(): Boolean {
+        return (findViewById<View>(R.id.table_fragment) == null)
+    }
+
+    fun showTableInPortrait(position: Int) {
+        if (fragmentManager.findFragmentById(R.id.table_fragment) == null) {
+            // Si hemos llegado aquí, sabemos que nunca hemos creado el MainFragment, lo creamos
+            fragmentManager.beginTransaction()
+                    .add(R.id.tables_fragment, TableFragment.newInstance(position))
+                    .commit()
         } else {
-            //Existe el fragment de la actividad, presento la mesa en el fragment
-            //Muestro el fragment de la mesa
-            if (fragmentManager.findFragmentById(R.id.table_fragment) == null) {
-                // Si hemos llegado aquí, sabemos que nunca hemos creado el MainFragment, lo creamos
-                fragmentManager.beginTransaction()
-                        .add(R.id.table_fragment, TableFragment.newInstance(0))
-                        .commit()
-            } else {
-                fragmentManager.beginTransaction()
-                        .replace(R.id.table_fragment, TableFragment.newInstance(position!!))
-                        .commit()
-            }
+            //Si ya existe el fragment, lo reemplazo con los nuevos datos
+            fragmentManager.beginTransaction()
+                    .replace(R.id.tables_fragment, TableFragment.newInstance(position))
+                    .commit()
+        }
+    }
+
+    fun showTableInLandscape(position: Int) {
+        if (fragmentManager.findFragmentById(R.id.table_fragment) == null) {
+            // Si hemos llegado aquí, sabemos que nunca hemos creado el MainFragment, lo creamos
+            fragmentManager.beginTransaction()
+                    .add(R.id.table_fragment, TableFragment.newInstance(position))
+                    .commit()
+        } else {
+            //Si ya existe el fragment, lo reemplazo con los nuevos datos
+            fragmentManager.beginTransaction()
+                    .replace(R.id.table_fragment, TableFragment.newInstance(position))
+                    .commit()
+        }
+    }
+
+    fun showTables() {
+        //Pintamos la lista de mesas
+        if (fragmentManager.findFragmentById(R.id.tables_fragment) == null) {
+            // Si hemos llegado aquí, sabemos que nunca hemos creado el MainFragment, lo creamos
+            fragmentManager.beginTransaction()
+                    .add(R.id.tables_fragment, TablesFragment.newInstance())
+                    .commit()
+        } else {
+            //Si ya existe el fragment, lo reemplazo con los nuevos datos
+            fragmentManager.beginTransaction()
+                    .replace(R.id.tables_fragment, TablesFragment.newInstance())
+                    .commit()
+        }
+    }
+
+    fun showTable(position: Int) {
+        if (isPortrait()) {
+            showTableInPortrait(position)
+        } else {
+            showTableInLandscape(position)
+            showTables()
         }
     }
 
@@ -93,26 +118,48 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
     //COMUNICACION FRAGMENT_TABLE - ACTIVITY
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //El fragment nos dice que salgamos devolviendo la mesa con los platos incorporados
-    override fun okTable(table: Table?) {
-        val returnIntent = Intent()
-        returnIntent.putExtra(TableActivity.EXTRA_TABLE, table) as? Serializable
-        setResult(Activity.RESULT_OK, returnIntent)
-        //finish()
+    //El fragment nos dice que actualicemos la mesa
+    override fun okTable(table: Table?, position: Int) {
+        if (table != null) {
+            Tables.actualizeTable(table)
+        }
+        if (isPortrait()) {
+            showTables()
+        } else {
+            showTable(position)
+        }
     }
 
     //El fragment nos dice que salgamos sin modificar nada
-    override fun cancelTable() {
-        setResult(Activity.RESULT_CANCELED)
-        //finish()
+    override fun cancelTable(position: Int) {
+        if (isPortrait()) {
+            showTables()
+        } else {
+            showTable(position)
+        }
     }
 
-    //El fragment nos dice que salgamos borrando la mesa. Ha dado la factura
-    override fun deleteTable(table: Table?) {
-        val returnIntent = Intent()
-        returnIntent.putExtra(TableActivity.EXTRA_TABLE, table) as? Serializable
-        setResult(Activity.RESULT_FIRST_USER, returnIntent)
-        //finish()
+    //El fragment nos dice que borremos la mesa. Ha dado la factura
+    override fun deleteTable(table: Table?, position: Int) {
+        if (table != null) {
+            Tables.deleteTable(table)
+        }
+        if (isPortrait()) {
+            showTables()
+        } else {
+            showTables()
+            if (Tables.count() != 0) {
+                showTable(0)
+            } else {
+                //Si ya existe el fragment, lo elimino
+                val fragment = fragmentManager.findFragmentById(R.id.table_fragment)
+                if (fragment == null) {
+                    fragmentManager.beginTransaction()
+                            .remove(fragment)
+                            .commit()
+                }
+            }
+        }
     }
 
     override fun selectPlateFromPlates() {
@@ -146,7 +193,7 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
 
     //El fragment nos pide mostrar la mesa seleccionada
     override fun tableSelected(position: Int) {
-        showFragmentTable(position)
+        showTable(position)
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -176,40 +223,34 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
                     fragment?.deleteTableInTables(tableSelected)
                 }
             }
-            TablesActivity.REQUEST_TABLE -> {
-                //Informo al fragment de la mesa seleccionada
-                //Si salen con botón ACEPTAR
-                if (resultCode == Activity.RESULT_OK) {
-                    val typeReturn = TYPE_RETURN.RESULT_OK
-                    val tableSelected = data?.getSerializableExtra(TableActivity.EXTRA_TABLE) as? Table
-                    //Actualizo la mesa con los datos que traiga
-                    val fragment = fragmentManager.findFragmentById(R.id.tables_fragment) as? TablesFragment
-                    fragment?.tableSelectedReturn(tableSelected, typeReturn)
-                    //Si salen con PositiveButton del Alert de la Factura
-                } else {
-                    if (resultCode == Activity.RESULT_FIRST_USER) {
-                        //Borro la mesa de la lista. Está acabada
-                        val typeReturn = TYPE_RETURN.RESULT_FIRST_USER
-                        val tableSelected = data?.getSerializableExtra(TableActivity.EXTRA_TABLE) as? Table
-                        val fragment = fragmentManager.findFragmentById(R.id.tables_fragment) as? TablesFragment
-                        fragment?.tableSelectedReturn(tableSelected, typeReturn)
-                    }
-                }
-            }
             TableActivity.REQUEST_PLATE -> {
                 //Recibo elplato seleccionado y lo añado a la lista de platos, con cantidad a 1
                 if (resultCode == Activity.RESULT_OK) {
                     val plateSelected = data?.getSerializableExtra(PlatesActivity.EXTRA_PLATE) as? Plate
-                    val fragment = fragmentManager.findFragmentById(R.id.table_fragment) as? TableFragment
-                    fragment?.addPlateSelectedToTable(plateSelected)
+                    if (isPortrait()) {
+                        //Pintamos el plato en tables_fragment (Portrait)
+                        val fragment = fragmentManager.findFragmentById(R.id.tables_fragment) as? TableFragment
+                        fragment?.addPlateSelectedToTable(plateSelected)
+                    } else {
+                        //Pintamos el plato en table_fragment (Landscape)
+                        val fragment = fragmentManager.findFragmentById(R.id.table_fragment) as? TableFragment
+                        fragment?.addPlateSelectedToTable(plateSelected)
+                    }
                 }
             }
             TableActivity.REQUEST_NOTE -> {
                 //Recibo la mesa con los datos ya cambiados (cantidad y notas)
                 if (resultCode == Activity.RESULT_OK) {
                     val tableSelected = data?.getSerializableExtra(NotesTableActivity.EXTRA_TABLE) as? Table
-                    val fragment = fragmentManager.findFragmentById(R.id.table_fragment) as? TableFragment
-                    fragment?.addNotesToPlate(tableSelected)
+                    if (isPortrait()) {
+                        //Pintamos el plato en tables_fragment (Portrait)
+                        val fragment = fragmentManager.findFragmentById(R.id.tables_fragment) as? TableFragment
+                        fragment?.addNotesToPlate(tableSelected)
+                    } else {
+                        //Pintamos el plato en table_fragment (Landscape)
+                        val fragment = fragmentManager.findFragmentById(R.id.table_fragment) as? TableFragment
+                        fragment?.addNotesToPlate(tableSelected)
+                    }
                 }
             }
         }

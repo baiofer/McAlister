@@ -12,7 +12,7 @@ import com.jarzasa.mcalister.model.Plate
 import com.jarzasa.mcalister.model.Table
 import java.io.Serializable
 
-class TableActivity : AppCompatActivity(), TableFragment.OnFragmentInteractionListener {
+class TableActivity : AppCompatActivity() {
 
     companion object {
         val REQUEST_PLATE = 4
@@ -29,7 +29,7 @@ class TableActivity : AppCompatActivity(), TableFragment.OnFragmentInteractionLi
             return intent
         }
     }
-
+/*
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_table)
@@ -106,5 +106,6 @@ class TableActivity : AppCompatActivity(), TableFragment.OnFragmentInteractionLi
             }
         }
     }
+    */
 }
 

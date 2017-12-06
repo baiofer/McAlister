@@ -66,9 +66,9 @@ class TableFragment : Fragment() {
 
         //Detectamos la pulsación de los botones
         //Se aceptan los datos de la mesa. Se devuelve la mesa con sus valores
-        root.findViewById<Button>(R.id.ok_table_button).setOnClickListener { mListener?.okTable(table) }
+        root.findViewById<Button>(R.id.ok_table_button).setOnClickListener { mListener?.okTable(table, position) }
         //No se aceptan los datos de la mesa. No se devuelve nada. La mesa queda como estuviese
-        root.findViewById<Button>(R.id.cancel_table_button).setOnClickListener { mListener?.cancelTable() }
+        root.findViewById<Button>(R.id.cancel_table_button).setOnClickListener { mListener?.cancelTable(position) }
         //Se va a la lista de platos para seleccionar un plato
         root.findViewById<Button>(R.id.plates_table_button).setOnClickListener { mListener?.selectPlateFromPlates() }
 
@@ -132,7 +132,7 @@ class TableFragment : Fragment() {
                 .setTitle("FACTURA")
                 .setMessage("El importe de su selección es: ${totalBill}")
                 .setPositiveButton("Aceptar", { _, _ ->
-                    mListener?.deleteTable(table)
+                    mListener?.deleteTable(table, position)
                 })
                 .setNegativeButton("Cancelar", { _, _ ->  })
                 .show()
@@ -184,9 +184,9 @@ class TableFragment : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        fun okTable(table: Table?)
-        fun cancelTable()
-        fun deleteTable(table: Table?)
+        fun okTable(table: Table?, position: Int)
+        fun cancelTable(position: Int)
+        fun deleteTable(table: Table?, position: Int)
         fun selectPlateFromPlates()
         fun getNotesFromPlate(table: Table?, position: Int)
     }
