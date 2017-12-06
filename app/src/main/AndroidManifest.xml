@@ -24,8 +24,6 @@
         </activity>
         <activity android:name=".activity.DeleteTableActivity">
         </activity>
-        <activity android:name=".activity.TableActivity">
-        </activity>
         <activity android:name=".activity.PlatesActivity">
         </activity>
         <activity android:name=".activity.PlateDescriptionActivity">

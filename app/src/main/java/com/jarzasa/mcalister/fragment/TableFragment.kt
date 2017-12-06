@@ -4,9 +4,9 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.Fragment
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -16,9 +16,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.jarzasa.mcalister.R
-import com.jarzasa.mcalister.activity.NotesTableActivity
-import com.jarzasa.mcalister.activity.PlatesActivity
-import com.jarzasa.mcalister.activity.TableActivity
 import com.jarzasa.mcalister.adapter.TableRecyclerViewAdapter
 import com.jarzasa.mcalister.model.Plate
 import com.jarzasa.mcalister.model.Table
@@ -27,6 +24,8 @@ import com.jarzasa.mcalister.model.Tables
 class TableFragment : Fragment() {
 
     companion object {
+        val ON = true
+        val OFF = false
 
         private val ARG_POSITION = "ARG_POSITION"
 
@@ -72,6 +71,9 @@ class TableFragment : Fragment() {
         //Se va a la lista de platos para seleccionar un plato
         root.findViewById<Button>(R.id.plates_table_button).setOnClickListener { mListener?.selectPlateFromPlates() }
 
+        //Desctivo el botón Back de la supportActionBar
+        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
         //Detectamos el floatingActionButton
         root.findViewById<FloatingActionButton?>(R.id.bill_button)?.setOnClickListener { _: View ->
             //Código asociado al botón flotante
@@ -103,15 +105,15 @@ class TableFragment : Fragment() {
         }
         //Si no hay platos seleccionados en la mesa, no mostramos el FloatingActionButton
         if (table?.plates?.size == 0) {
-            setBillButton(TableActivity.OFF)
+            setBillButton(OFF)
         } else {
-            setBillButton(TableActivity.ON)
+            setBillButton(ON)
         }
     }
 
     //Determino si mostrar o no el botón flotante (Si no hay platos en la lista de platos, no lo muestro)
     fun setBillButton(visibility: Boolean) {
-        if (visibility == TableActivity.ON) {
+        if (visibility == ON) {
             root.findViewById<FloatingActionButton>(R.id.bill_button).visibility = View.VISIBLE
         } else {
             root.findViewById<FloatingActionButton>(R.id.bill_button).visibility = View.INVISIBLE

@@ -21,8 +21,8 @@ class NotesTableActivity : AppCompatActivity() {
 
         fun intent(context: Context, table: Table?, position: Int): Intent {
             val intent = Intent(context, NotesTableActivity::class.java)
-            intent.putExtra(TableActivity.EXTRA_TABLE, table)
-            intent.putExtra(TableActivity.EXTRA_POSITION, position)
+            intent.putExtra(TablesActivity.EXTRA_TABLE, table)
+            intent.putExtra(TablesActivity.EXTRA_POSITION, position)
             return intent
         }
     }
@@ -34,10 +34,10 @@ class NotesTableActivity : AppCompatActivity() {
         setContentView(R.layout.activity_notes_table)
 
         //Recibimos la mesa
-        val table = intent.getSerializableExtra(TableActivity.EXTRA_TABLE) as? Table
+        val table = intent.getSerializableExtra(TablesActivity.EXTRA_TABLE) as? Table
 
         //Recibimos el plato seleccionado de su lista de platos
-        position = intent.getIntExtra(TableActivity.EXTRA_POSITION, 0)
+        position = intent.getIntExtra(TablesActivity.EXTRA_POSITION, 0)
 
         //Poner datos almacenados en la pantalla, para partir de los datos que hubiese
         if (table != null) {

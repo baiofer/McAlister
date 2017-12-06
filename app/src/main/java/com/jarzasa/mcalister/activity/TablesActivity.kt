@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.jarzasa.mcalister.R
@@ -24,34 +25,31 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
         val REQUEST_ADD = 1
         val REQUEST_DELETE = 2
         val ADD = false
+        val REQUEST_PLATE = 4
+        val REQUEST_NOTE = 5
+        val EXTRA_TABLE = "EXTRA_TABLE"
+        val EXTRA_PLATE = "EXTRA_PLATE"
+        val EXTRA_POSITION = "EXTRA_POSITION"
 
         fun intent(context: Context) = Intent(context, TablesActivity::class.java)
     }
+
+    var oldPosition: Int = 0
+    lateinit var oldTable: Table
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tables)
 
         //Comprobamos que en la interfaz tenemos el FrameLayout de la mesa (Table)(landscape)
-        if (findViewById<View>(R.id.table_fragment) != null) {
+        if (!isPortrait()) {
             //Si no hay mesas, no presento nada
             if (Tables.count() != 0) {
-                //Llamamos al fragment
-                if (fragmentManager.findFragmentById(R.id.table_fragment) == null) {
-                    // Si hemos llegado aquí, sabemos que nunca hemos creado el MainFragment, lo creamos
-                    fragmentManager.beginTransaction()
-                            .add(R.id.table_fragment, TableFragment.newInstance(0))
-                            .commit()
-                }
+                showTableInLandscape(0)
             }
         }
         //Llamamos al fragment de las Mesas
-        if (fragmentManager.findFragmentById(R.id.tables_fragment) == null) {
-            // Si hemos llegado aquí, sabemos que nunca hemos creado el MainFragment, lo creamos
-            fragmentManager.beginTransaction()
-                    .add(R.id.tables_fragment, TablesFragment.newInstance())
-                    .commit()
-        }
+        showTables()
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,15 +125,20 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
             showTables()
         } else {
             showTable(position)
+            Snackbar.make(findViewById(R.id.tables_fragment), getString(R.string.table_added), Snackbar.LENGTH_LONG)
+                    .show()
         }
     }
 
     //El fragment nos dice que salgamos sin modificar nada
     override fun cancelTable(position: Int) {
+        Tables[oldPosition] = oldTable
         if (isPortrait()) {
             showTables()
         } else {
-            showTable(position)
+            showTable(oldPosition)
+            Snackbar.make(findViewById(R.id.tables_fragment), getString(R.string.discarded_changes), Snackbar.LENGTH_LONG)
+                    .show()
         }
     }
 
@@ -163,11 +166,11 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
     }
 
     override fun selectPlateFromPlates() {
-        startActivityForResult(PlatesActivity.intent(this), TableActivity.REQUEST_PLATE)
+        startActivityForResult(PlatesActivity.intent(this), REQUEST_PLATE)
     }
 
     override fun getNotesFromPlate(table: Table?, position: Int) {
-        startActivityForResult(NotesTableActivity.intent(this, table, position), TableActivity.REQUEST_NOTE)
+        startActivityForResult(NotesTableActivity.intent(this, table, position), REQUEST_NOTE)
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -193,6 +196,8 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
 
     //El fragment nos pide mostrar la mesa seleccionada
     override fun tableSelected(position: Int) {
+        oldPosition = position
+        oldTable = Tables[position]
         showTable(position)
     }
 
@@ -223,7 +228,7 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
                     fragment?.deleteTableInTables(tableSelected)
                 }
             }
-            TableActivity.REQUEST_PLATE -> {
+            REQUEST_PLATE -> {
                 //Recibo elplato seleccionado y lo añado a la lista de platos, con cantidad a 1
                 if (resultCode == Activity.RESULT_OK) {
                     val plateSelected = data?.getSerializableExtra(PlatesActivity.EXTRA_PLATE) as? Plate
@@ -238,7 +243,7 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
                     }
                 }
             }
-            TableActivity.REQUEST_NOTE -> {
+            REQUEST_NOTE -> {
                 //Recibo la mesa con los datos ya cambiados (cantidad y notas)
                 if (resultCode == Activity.RESULT_OK) {
                     val tableSelected = data?.getSerializableExtra(NotesTableActivity.EXTRA_TABLE) as? Table

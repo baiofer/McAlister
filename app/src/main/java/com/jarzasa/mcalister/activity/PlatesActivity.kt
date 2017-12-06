@@ -44,7 +44,7 @@ class PlatesActivity : AppCompatActivity() {
             //y salgo de mi actividad
             override fun buttonSelectPressed(plate: Plate) {
                 val returnIntent = Intent()
-                returnIntent.putExtra(TableActivity.EXTRA_PLATE, plate) as? Serializable
+                returnIntent.putExtra(TablesActivity.EXTRA_PLATE, plate) as? Serializable
                 setResult(Activity.RESULT_OK, returnIntent)
                 finish()
             }

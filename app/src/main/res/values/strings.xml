@@ -48,5 +48,7 @@
     <string name="default_text">Default</string>
     <string name="quantity">Cantidad:</string>
     <string name="price">Precio:</string>
+    <string name="table_added">Mesa almacenada</string>
+    <string name="discarded_changes">Cambios descartados</string>
 
 </resources>
