@@ -156,7 +156,7 @@ class TablesActivity : AppCompatActivity(), TablesFragment.OnFragmentInteraction
             } else {
                 //Si ya existe el fragment, lo elimino
                 val fragment = fragmentManager.findFragmentById(R.id.table_fragment)
-                if (fragment == null) {
+                if (fragment != null) {
                     fragmentManager.beginTransaction()
                             .remove(fragment)
                             .commit()
