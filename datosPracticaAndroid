@@ -1,0 +1,224 @@
+{
+  "results": [
+    {
+      "number": 1,
+      "name": "AJOBLANCO",
+      "ingredients": "agua, almendras, aceite de oliva virgen extra, vinagre, ajo y sal.",
+      "allergens": "contiene frutos de cáscara.",
+      "photo": "ajoblanco.jpg",
+      "recipe": "Sopa fría muy popular en Andalucía, herencia de nuestra cultura romana. Elaborada con, almendras, ajo y aceite de oliva virgen extra. Queda muy rica acompañada de manzana, uvas, pasas, anchoas o piñones. Su sabor fresco sienta de maravilla en los calurosos meses de verano.",
+      "price": 3.95,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 2,
+      "name": "ALBÓNDIGAS EN SALSA DE ALMENDRAS",
+      "ingredients": "pollo, ternera, zanahoria, pan rallado, huevo, cebolla, sal, azúcar, aceite de girasol, comino, canela, perejil, pimienta negra y salsa de almendras (almendra, zanahoria, cebolla, aceite de oliva virgen extra, sal, ajo, curry y azafrán).",
+      "allergens": "contiene huevo, gluten, frutos secos y soja.",
+      "photo": "albondigas_en_salsa_de_almendras.jpg",
+      "recipe": "Exquisitas albóndigas de pollo y ternera en una exótica salsa de almendras y curry. Un plato como los de siempre, pero con un toque elegante gracias a su deliciosa salsa perfecta para mojar pan.",
+      "price": 5.50,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 3,
+      "name": "ALCACHOFAS CON JAMÓN IBÉRICO A LA MONTILLANA",
+      "ingredients": "alcachofas, agua, cebolla, vino blanco, aceite de oliva virgen extra, maizena, sal, jamón ibérico, pimienta blanca y azafrán en hebra.",
+      "allergens": "No contiene alérgenos.",
+      "photo": "alcachofas_con_jamon_iberico_a_la_montillana.jpg",
+      "recipe": "Corazones de alcachofas salteados con fino de Montilla Moriles y jamón ibérico. Plato típico de la cocina cordobesa que no te puedes perder. Receta única para que disfrute toda la familia.",
+      "price": 5.50,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 4,
+      "name": "ALUBIAS CON ALMEJAS",
+      "ingredients": "alubias, almejas, patata, fumet de marisco,  tomate frito casero Miplato (tomate, cebolla, pimiento rojo, zanahoria, aceite de oliva virgen extra, azúcar, sal, ajo) cebolla, zanahoria, pimiento rojo, aceite de oliva virgen extra, sal, ajo, azafrán y pimentón.",
+      "allergens": "contiene moluscos y marisco.",
+      "photo": "alubias_con_almejas.jpg",
+      "recipe": "Una de las joyas de la cocina asturiana, un plato para disfrutar. Tiernas fabes al punto rehogadas en el caldo de las almejas, toda una delicia para tomar caliente en los meses más fríos.",
+      "price": 3.95,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 5,
+      "name": "ARROZ CHINO",
+      "ingredients": "Arroz basmati, agua, zanahoria, pimiento verde, huevo líquido pasteurizado, aceite de girasol, salsa de soja, jengibre en polvo, pimienta y sal",
+      "allergens": "contiene huevo, soja y gluten.",
+      "photo": "arroz_chino.jpg",
+      "recipe": "Este delicioso arroz chino te sirve de complemento ideal para acompañar a un plato de verdura, carne o pescado.",
+      "price": 3.50,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 6,
+      "name": "ATÚN ENCEBOLLADO",
+      "ingredients": "atún, cebolla, agua, aceite de oliva virgen extra, vinagre, ajo, sal, pimienta, orégano y laurel",
+      "allergens": "contiene pescado",
+      "photo": "atun_encebollado.jpg",
+      "recipe": "Plato típico marinero de la bahía de Cádiz que hacemos con un buen lomo de atún y mucho cariño. Aderezado con pimienta y orégano para que tenga un sabor inconfundible.",
+      "price": 6.95,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 7,
+      "name": "CARRILLADA IBÉRICA EN SALSA DE CANELA",
+      "ingredients": "carrillada ibérica, cebolla, pimiento rojo, tomate frito casero Miplato (tomate, cebolla, pimiento rojo, zanahoria, aceite de oliva virgen extra, azúcar, sal, ajo), aceite de oliva virgen extra, vino blanco, ajo, sal, canela, pimienta blanca, nuez moscada, pimentón.",
+      "allergens": "No contiene alérgenos.",
+      "photo": "carrillada_iberica_en_salsa_de_canela.jpg",
+      "recipe": "Tierna carrillada de cerdo ibérico estofada en una exquisita salsa de canela. No te pierdas esta combinación única de sabores y la suave textura de las carrilleras ibéricas. ¡Para chuparse los dedos!",
+      "price": 6.50,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 8,
+      "name": "COCIDO MADRILEÑO",
+      "ingredients": "garbanzos, agua, pollo, patata, morcilla, jarrete de ternera, chorizo ibérico, tocino de beta, zanahoria, col, hueso de canilla, sal y caldo casero de jamón ibérico de bellota Miplato (hueso de jamón y agua).",
+      "allergens": "contiene gluten y leche",
+      "photo": "cocido_madrileno.jpg",
+      "recipe": "El plato más famoso de la cocina madrileña, un lujo para disfrutar de la cocina tradicional. Cocinado a fuego lento para que guarde bien el sabor de la morcilla, el chorizo ibérico y el tocino.",
+      "price": 3.95,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 9,
+      "name": "CONEJO AL AJILLO",
+      "ingredients": "conejo, cebolla, vino blanco, caldo de conejo, puerro, aceite de oliva virgen extra, ajo, sal, azafrán, pimienta negra, tomillo",
+      "allergens": "No contiene alérgenos.",
+      "photo": "conejo_al_ajillo.jpg",
+      "recipe": "Receta clásica de conejo, una carne muy sabrosa y saludable. Plato típico de la cocina medieval andaluza que no puede faltar en tu nevera, porque es rico, nutritivo y fácil de digerir.",
+      "price": 5.95,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 10,
+      "name": "COSTILLAS DE CERDO ASADAS AL HORNO CON SALSA BARBACOA",
+      "ingredients": "Costillas de cerdo, cebolla, tomate frito casero Miplato (tomate, cebolla, pimiento rojo, zanahoria, aceite de oliva virgen extra, azúcar, sal, ajo), jugo de costilla, aceite de oliva virgen extra, ketchup, mostaza, curcuma, miel, vinagre, sal, guindilla cayena, ajo y orégano.",
+      "allergens": "contiene mostaza",
+      "photo": "costillas_de_cerdo_asadas_al_horno_con_salsa_barbacoa.jpg",
+      "recipe": "Sabroso y tierno costillar de cerdo marinado en la clásica salsa barbacoa. Acompáñala de patatas fritas y date un capricho con este jugoso plato típico americano sin salir de casa.",
+      "price": 8.95,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 11,
+      "name": "CREMA DE CALABAZA",
+      "ingredients": "calabaza, puerro, zanahoria, nata vegetal, caldo de verduras casero Miplato (agua, cebolla, puerro, patata, tomate, pimiento verde, sal y ajo), aceite de oliva virgen extra, sal, ajo y pimienta negra.",
+      "allergens": "No contiene alérgenos.",
+      "photo": "crema_de_calabaza-.jpg",
+      "recipe": "¡Qué no te den calabazas! Mejor pide nuestra crema de calabaza baja en calorías, será tu mejor amiga si quieres mantener la línea.",
+      "price": 3.50,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 12,
+      "name": "ENSALADA DE PASTA CON ATÚN Y GAMBAS",
+      "ingredients": "espirales de pasta, atún, gambas, cebolla, pimiento rojo, zanahoria, maíz, aceitunas negras, sal y pimienta blanca",
+      "allergens": "contiene pescado, crustáceos y gluten. Y puede contener trazas de huevo.",
+      "photo": "ensalada_de_pasta_con_atun_y_gambas.jpg",
+      "recipe": "Nutritiva y sabrosa ensalada de pasta aldente con lo mejor del mar. Una de las cenas rápidas más populares, sobre todo en verano gracias a su frescura. Además es sanísima: contiene hidratos, proteínas y es rica en Omega3.",
+      "price": 4.95,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 13,
+      "name": "ENSALADILLA RUSA DE ATÚN Y GAMBAS",
+      "ingredients": "patatas, mayonesa, atún, aceite de oliva virgen extra, huevo, zanahoria, gambas y sal.",
+      "allergens": "contiene pescado, huevo y crustáceos",
+      "photo": "ensaladilla_rusa_de_atun_y_gambas.jpg",
+      "recipe": "Sucesora de la ensalada Olivier, esta ensaladilla te sorprenderá por su sabor auténticamente casero. ¡De verdad! Hay mil y una recetas de este plato, pero la nuestra lleva además de patata, zanahoria y atún, un toque de gambas.",
+      "price": 4.95,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 14,
+      "name": "ESPINACAS CON GARBANZOS",
+      "ingredients": "espinacas, garbanzos, cebolla, aceite de oliva virgen extra, vinagre, ajo, sal, comino, pimentón dulce y pimienta blanca",
+      "allergens": "No contiene alérgenos.",
+      "photo": "espinacas_con_garbanzos.jpg",
+      "recipe": "Ponte fuerte como Popeye con nuestras sabrosas espinacas salteadas en aceite de oliva virgen extra con tiernos garbanzos. Potaje típico andaluz perfecto para acompañarlo con pan frito. Toda una delicia.",
+      "price": 3.95,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 15,
+      "name": "FLAN DE CHOCOLATE BLANCO",
+      "ingredients": "leche, nata, chocolate blanco, gelatina en polvo y caramelo líquido.",
+      "allergens": "contiene soja y leche. Puede contener trazas de gluten, frutos secos y huevo.",
+      "photo": "flan_de_chocolate_blanco.jpg",
+      "recipe": "Un flan para los más golosos, un suave sabor a chocolate blanco. Sobran las palabras cuando se trata de describir este magnífico postre.",
+      "price": 2.40,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 16,
+      "name": "LOMO DE BACALAO CON TOMATE",
+      "ingredients": "bacalao y salsa de tomate casera Miplato (tomate, pimiento rojo, cebolla, azúcar, zanahoria, aceite de oliva virgen extra, ajo y sal).",
+      "allergens": "contiene pescado.",
+      "photo": "lomo_de_bacalao_con_tomate.jpg",
+      "recipe": "Suprema de lomo de bacalao confitado a baja temperatura acompañado de nuestra famosa salsa de tomate casera.",
+      "price": 6.95,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 17,
+      "name": "MERLUZA AL CAVA",
+      "ingredients": " merluza, cava, puerro, gambas, agua, cebolla, aceite de oliva virgen extra, zanahoria, maizena, sal y pimienta blanca",
+      "allergens": "contiene pescado y crustáceos.",
+      "photo": "merluza_al_cava.jpg",
+      "recipe": "",
+      "price": 6.95,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 18,
+      "name": "MERO EN SALSA DE SETAS",
+      "ingredients": "mero, setas, cebolla, agua, ajo, aceite de oliva virgen extra y sal",
+      "allergens": "contiene pescado",
+      "photo": "mero_en_salsa_de_setas.jpg",
+      "recipe": "De la mar el mero y de la tierra...una estupenda salsa de setas, ¡Te encantará! Rico, sabroso y sano.",
+      "price": 6.95,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 19,
+      "name": "PECHUGA DE POLLO EN SALSA DE ALMENDRAS Y CURRY",
+      "ingredients": "pechuga de pollo, almendra, zanahoria, cebolla, aceite de oliva virgen extra, sal, ajo, curry y azafrán en hebra.",
+      "allergens": "contiene mostaza, apio y frutos de cáscara.",
+      "photo": "pechuga_de_pollo_en_salsa_de_almendras_y_curry.jpg",
+      "recipe": "Este plato tan internacional le encantará a toda la familia por la jugosidad del pollo y el sabor de la salsa de almendras. Acompáñalo con arroz blanco, rico en carbohidratos para aportar la energía que necesitas para tu actividad física diaria.",
+      "price": 5.95,
+      "quantity": 0,
+      "notes": ""
+    },
+    {
+      "number": 20,
+      "name": "TARTA DE QUESO CON MERMELADA DE FRESA",
+      "ingredients": "queso crema, nata, azúcar, mermelada de fresa, gelatina y azúcar vainillada.",
+      "allergens": "contiene leche. Puede contener gluten y huevo.",
+      "photo": "tarta_de_queso_con_mermelada_de_fresa.jpg",
+      "recipe": "Suave crema de queso con una base mermelada de fresa. Conocida también como cheesecake, no hay duda de que caerás rendid@ a este postre con más de 4.000 años de historia.",
+      "price": 2.40,
+      "quantity": 0,
+      "notes": ""
+    }
+  ]
+}
